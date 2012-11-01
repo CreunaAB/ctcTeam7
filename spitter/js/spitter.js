@@ -16,6 +16,12 @@ var ui = sp.require("sp://import/scripts/ui");
 var application = models.application;
 var	playerImage = new views.Player();
 var since = '';
+var fetchTweets = function() {
+	UrlRetriever.getSpotifyUrlsFromTwitter(since, 'ctcTeam7', function(items){         
+		setItemTrackUris(items);
+		since = items[0].id_str;
+	});
+};
 
 $(function() {	
 	tabs();	
@@ -33,17 +39,18 @@ $(function() {
         window.localStorage.setItem('timestamp', (new Date()).getTime());
     });
 
-    $("#spitter button").click(function(e){
-        UrlRetriever.getSpotifyUrlsFromTwitter(since, 'ctcTeam7', function(items){         
-            setItemTrackUris(items);
-   			since = items[0].id_str;
-        });
-    }); 
+    $("#spitter button").click(fetchTweets); 
     $("#savePlaylist").live('click',function(e){
         var myAwesomePlaylist = new models.Playlist("Spitter Tracks");
         $.each(playlist.data.all(),function(i,track){
             myAwesomePlaylist.add(track);
         });
         e.preventDefault();
-    }); 
+    });
+    
+    models.player.observe(models.EVENT.CHANGE, function (e) {	
+		if(e.data.curtrack == true) {
+			fetchTweets();
+		}
+	});
 });
