@@ -1,51 +1,51 @@
-body {
-	padding-bottom: 25px;
+.clear {
+	clear:both;
+}
+.left {
+	float:left;
+}
+.section {
+	padding:20px;
+}
+#player-image {
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+#player-image, #player-image .image {
+	float:left;
+	height:128px;
+	width:128px;
+}
+#commands {
+	margin-bottom:30px;
+}
+ul {
+	list-style: disc;
+	margin-left: 20px; 
+}
+a {
+	color:#eeeeee;
+}
+#search-term {
+	width:200px;
+}
+.examples {
+	margin:20px 0;
+}
+#search-results h2 {
+	margin:10px 0 5px;
+	color: #999;
+	font-weight:bold;
+}
+#search-results .sp-player {
+	float:left;
+	margin-right:10px;
+}
+#search-results .add-playlist {
+	margin-top:20px;
+}
+#search-results .sp-list {
+	width:inherit;
+	max-height:inherit;
 }
 
-h1 {
-	margin: 20px auto 40px auto;
-	font-size: 35px;
-	width: 400px;
-	font-family: Lucida;
-	text-align: center;
-}
-
-.app {
-	margin: 0 auto;
-}
-
-.player {
-	float: left;
-	margin: 25px 25px 25px 45px;
-	width: 500px;;
-}
-
-.player > * {
-	float: left;
-}
-
-.player .title {
-	margin-bottom: 15px;
-	font-size: 24px;
-	color: #fff;
-	text-shadow: 1px 1px 1px #000;
-}
-
-.sp-player {
-	clear: both;
-}
-
-.sp-list {
-	margin-top: 20px;
-	max-height: 200px;
-}
-
-.cf:before,
-.cf:after {
-    content: " "; /* Space avoids Opera bug */
-    display: table; /* Using table rather than block because of :before and to contain top-margins of child-elements */
-}
-
-.cf:after {
-    clear: both;
-}

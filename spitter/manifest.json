@@ -17,7 +17,20 @@
     "SupportedLanguages": [
         "en"
     ],
-    "DefaultTabs": [ ],
+    "DefaultTabs": [
+        {
+            "arguments": "spitter",
+            "title": {
+                "en": "Spitter"
+            }
+        },      
+        {
+            "arguments": "settings",
+            "title": {
+                "en": "Settings"
+            }
+        }
+    ],
     "VendorIdentifier": "com.creuna",
     "RequiredInterface": "1",
     "RequiredPermissions": [ 

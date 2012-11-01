@@ -6,22 +6,22 @@
     <title>Demo</title>
     <link rel="stylesheet" href="sp://import/css/adam.css">
     <link rel="stylesheet" href="sp://import/css/api.css">
-    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
 </head>
-<body onload="">
-<div class="app">
-	<h1>Top artists, as for now! :)</h1>
-</div>
-<div class="cf"></div>
-   <div style="padding: 20px;">
-        <input id="query" type="text" value="blue angels" />
-        <input id="submit" type="button" value="Search" />
-    </div>
-    <div id="tweets" style="padding: 20px;">
-        Tweets will go here.
-    </div>
+<body>
+	<div id="spitter" class="section">
+			Enter a search term: <input type="text" id="search-term" value="Radiohead">
+			<button class="new-button" id="search-basic">Search</button>			
+			<div id="search-results"></div>
+	</div>
+
+	<div id="settings" class="section">
+		Settings			
+	</div>
 
 	<script type="text/javascript" src="./js/jquery-1.7.1.min.js"></script>
 	<script type="text/javascript" src="./js/demo.js"></script>
+	<script type="text/javascript" src="./js/tracks.js"></script>
 </body>
 </html>
