@@ -14,8 +14,15 @@ var views = sp.require('sp://import/scripts/api/views');
 var dom = sp.require('sp://import/scripts/dom');
 var ui = sp.require("sp://import/scripts/ui");
 var application = models.application;
-var	playerImage = new views.Player();	
 var twitterQuery;
+var	playerImage = new views.Player();
+var since = '';
+var fetchTweets = function() {
+	UrlRetriever.getSpotifyUrlsFromTwitter(since, twitterQuery, function(items){         
+		setItemTrackUris(items);
+		since = items[0].id_str;
+	});
+};
 
 $(function() {	
 	tabs();	
@@ -33,11 +40,7 @@ $(function() {
         window.localStorage.setItem('twitter-query', twitterQuery);
     });
 
-    $("#spitter button").click(function(e){
-        UrlRetriever.getSpotifyUrlsFromTwitter('', twitterQuery, function(items){         
-            setItemTrackUris(items);
-        });
-    }); 
+    $("#spitter button").click(fetchTweets); 
 
     $("#savePlaylist").live('click',function(e){
         var myAwesomePlaylist = new models.Playlist("Spitter Tracks");
@@ -45,7 +48,14 @@ $(function() {
             myAwesomePlaylist.add(track);
         });
         e.preventDefault();
+
     }); 
 
-    $('#title').html('Following ' + twitterQuery);
+    $('#title').html('Following ' + twitterQuery);    
+    
+    models.player.observe(models.EVENT.CHANGE, function (e) {	
+		if(e.data.curtrack == true) {
+			fetchTweets();
+		}
+	});
 });
