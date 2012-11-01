@@ -19,10 +19,16 @@ var	playerImage = new views.Player();
 $(function() {	
 	tabs();	
 	application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);
+    
+    if (window.localStorage.getItem("name")) {
+        $('#twitter-query').val(window.localStorage.getItem("twitter-query"));
+    }
 
-	var storage = window['localStorage'];
-    console.log(storage.getItem('name'));
+    $('.stored').keyup(function () {
+        window.localStorage.setItem($(this).attr('name'), $(this).val());
+    });
 
-	localStorage.setItem('name', "Hello");
-    localStorage.setItem('uri', "World");
+    $('#localStorageTest').submit(function() {
+        window.localStorage.setItem('timestamp', (new Date()).getTime());
+    });
 });
