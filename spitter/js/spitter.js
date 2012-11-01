@@ -15,28 +15,30 @@ var dom = sp.require('sp://import/scripts/dom');
 var ui = sp.require("sp://import/scripts/ui");
 var application = models.application;
 var	playerImage = new views.Player();	
+var twitterQuery;
 
 $(function() {	
 	tabs();	
 	application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);
     
-    if (window.localStorage.getItem("name")) {
-        $('#twitter-query').val(window.localStorage.getItem("twitter-query"));
+    twitterQuery = window.localStorage.getItem('twitter-query');
+    if (twitterQuery) {
+        $('#twitter-query').val(twitterQuery);
+    } else {
+        twitterQuery = 'ctcTeam7';        
     }
 
-    $('.stored').keyup(function () {
-        window.localStorage.setItem($(this).attr('name'), $(this).val());
-    });
-
     $('#localStorageTest').submit(function() {
-        window.localStorage.setItem('timestamp', (new Date()).getTime());
+        twitterQuery = $('#twitter-query').val();
+        window.localStorage.setItem('twitter-query', twitterQuery);
     });
 
     $("#spitter button").click(function(e){
-        UrlRetriever.getSpotifyUrlsFromTwitter('', 'ctcTeam7', function(items){         
+        UrlRetriever.getSpotifyUrlsFromTwitter('', twitterQuery, function(items){         
             setItemTrackUris(items);
         });
     }); 
+
     $("#savePlaylist").live('click',function(e){
         var myAwesomePlaylist = new models.Playlist("Spitter Tracks");
         $.each(playlist.data.all(),function(i,track){
@@ -44,4 +46,6 @@ $(function() {
         });
         e.preventDefault();
     }); 
+
+    $('#title').html('Following ' + twitterQuery);
 });

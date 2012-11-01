@@ -1,3 +1,5 @@
+var numberOfResults = 0;
+
 var Twitter = {
 	url: 'http://search.twitter.com/search.json',
 	
@@ -27,24 +29,35 @@ var Twitter = {
 UrlParser = {
 	expandUrl: function(tweet, callback){
 		var self = this;
-		$.ajax({
-			url: 'http://api.longurl.org/v2/expand',
-			data: {
-				url: this.parse(tweet),
-				format: 'json'
-			},
-			type: 'GET',
-			dataType: 'jsonp'
-		}).done(function(data) {
-			tweet.spotifyurl = data['long-url'];
-			tweet.spotifyType = tweet.spotifyurl.split("/").slice(-2)[0];
-			tweet.spotifyId = tweet.spotifyurl.split("/").slice(-1)[0];
-			tweet.spotifyTrackUri = null;
-			callback.call(self, tweet);
-		});
+		var parsedUrl = this.parse(tweet);
+		if (parsedUrl && !parsedUrl.match(/^http:\/\/open.spotify.com/)) {
+			$.ajax({
+				url: 'http://api.longurl.org/v2/expand',
+				data: {
+					url: parsedUrl,
+					format: 'json'
+				},
+				type: 'GET',
+				dataType: 'jsonp'
+			}).done(function(data) {
+				tweet.spotifyurl = data['long-url'];
+				tweet.spotifyType = tweet.spotifyurl.split("/").slice(-2)[0];
+				tweet.spotifyId = tweet.spotifyurl.split("/").slice(-1)[0];
+				tweet.spotifyTrackUri = null;
+				callback.call(self, tweet);
+			}).fail(function(error) {
+				tweet.spotifyurl = null;
+				tweet.spotifyType = null;
+				tweet.spotifyId = null;
+				tweet.spotifyTrackUri = null;
+				callback.call(self, tweet);
+			});
+		} else {
+			numberOfResults--;
+		}
 	},
 	parse: function(obj) {
-		if(!obj || !obj.entities || !obj.entities.urls) {
+		if(!obj || !obj.entities || !obj.entities.urls || obj.entities.urls.length == 0) {
 			console.log(obj);
 			console.log("expects an object with urls");
 			return "";
@@ -61,13 +74,16 @@ UrlRetriever = {
 			if(!data.results){
 				console.log('found no resultsobject in data');
 			}
+			numberOfResults = data.results.length;
+
 			var array = [];
 			var index;
 			console.log(data.results.length+' from twitter');
+			console.log(data.results);
 			for(index = 0; index < data.results.length; index++){
 				UrlParser.expandUrl(data.results[index], function(tweet){ 
 					array.push(tweet);
-					if(array.length === data.results.length){
+					if(array.length === numberOfResults){
 						callback.call(this, array);
 					}
 				});

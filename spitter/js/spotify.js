@@ -51,7 +51,9 @@ function updateUI(items) {
 	$("#search-results").html('');
 		
 	for (var i = 0; i < items.length; ++i) {
-		playlist.add(items[i].spotifyTrackUri);
+		if (items[i].spotifyTrackUri != null) {
+			playlist.add(items[i].spotifyTrackUri);
+		}
 	}
 
 	/*var list = new views.List(playlist, function (track) {
