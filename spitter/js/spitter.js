@@ -31,4 +31,17 @@ $(function() {
     $('#localStorageTest').submit(function() {
         window.localStorage.setItem('timestamp', (new Date()).getTime());
     });
+
+    $("#spitter button").click(function(e){
+        UrlRetriever.getSpotifyUrlsFromTwitter('', 'ctcTeam7', function(items){         
+            setItemTrackUris(items);
+        });
+    }); 
+    $("#savePlaylist").live('click',function(e){
+        var myAwesomePlaylist = new models.Playlist("Spitter Tracks");
+        $.each(playlist.data.all(),function(i,track){
+            myAwesomePlaylist.add(track);
+        });
+        e.preventDefault();
+    }); 
 });
