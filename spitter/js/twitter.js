@@ -3,13 +3,13 @@ var numberOfResults = 0;
 var Twitter = {
 	url: 'http://search.twitter.com/search.json',
 	
-	getData: function(since, hashtag, callback) {
+	getData: function(since, query, callback) {
 		var self = this;
 
 		$.ajax({
 			url: self.url,
 			data: {
-				q: '%23' + hashtag +'  +open.spotify+spoti.fi',
+				q: query +'  +open.spotify+spoti.fi',
 				include_entities: true,
 				result_type: 'recent',
 				since_id : since

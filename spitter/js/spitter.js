@@ -38,9 +38,7 @@ $(function() {
     $('#localStorageTest').submit(function() {
         twitterQuery = $('#twitter-query').val();
         window.localStorage.setItem('twitter-query', twitterQuery);
-    });
-
-    $("#spitter button").click(fetchTweets); 
+    });    
 
     $("#savePlaylist").live('click',function(e){
         var myAwesomePlaylist = new models.Playlist("Spitter Tracks");
@@ -51,11 +49,13 @@ $(function() {
 
     }); 
 
-    $('#title').html('Following ' + twitterQuery);    
+    $('#title').html('Following ' + twitterQuery + ' on Twitter');    
     
     models.player.observe(models.EVENT.CHANGE, function (e) {	
 		if(e.data.curtrack == true) {
 			fetchTweets();
 		}
 	});
+
+    fetchTweets();
 });
