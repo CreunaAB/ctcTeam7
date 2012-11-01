@@ -11,7 +11,7 @@ var asyncCalls = [],  // Initiate for later
 	tempPlaylist = new models.Playlist();
 
 $(function(){
-	
+setItemTrackUris();	
 	$("#spitter button").click(function(e){
 		var query = $("#search-term").val();
 		var type = $(this).attr("id");
