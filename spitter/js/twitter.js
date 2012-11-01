@@ -26,8 +26,25 @@ var Twitter = {
 	}
 },
 
+Tweet = {
+	url: 'https://api.twitter.com/1/statuses/oembed.json',
+	
+	getData: function(tweetId) {
+		var self = this;
+
+		$.ajax({
+			url: self.url,
+			data: 'id=' + tweetId,
+			dataType: 'jsonp',
+			async: true,
+			
+		}).done(function(response) { console.log(response)});
+	
+	},
+},
+
 UrlParser = {
-	expandUrl: function(tweet, callback){
+	expandUrl: function(tweet, callback) {
 		var self = this;
 		var parsedUrl = this.parse(tweet);
 		if (parsedUrl && !parsedUrl.match(/^http:\/\/open.spotify.com/)) {

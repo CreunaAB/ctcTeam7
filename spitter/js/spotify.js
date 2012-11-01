@@ -56,6 +56,8 @@ function updateUI(items) {
 		}
 	}
 
+	console.log(Tweet.getData(items[0].id_str));
+
 	/*var list = new views.List(playlist, function (track) {
 		return new views.Track(track, views.Track.FIELD.STAR | views.Track.FIELD.POPULARTIY | 
 			views.Track.FIELD.ARTIST | views.Track.FIELD.NAME | views.Track.FIELD.DURATION);
