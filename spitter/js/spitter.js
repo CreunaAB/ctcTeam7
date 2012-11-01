@@ -14,7 +14,8 @@ var views = sp.require('sp://import/scripts/api/views');
 var dom = sp.require('sp://import/scripts/dom');
 var ui = sp.require("sp://import/scripts/ui");
 var application = models.application;
-var	playerImage = new views.Player();	
+var	playerImage = new views.Player();
+var since = '';
 
 $(function() {	
 	tabs();	
@@ -33,8 +34,9 @@ $(function() {
     });
 
     $("#spitter button").click(function(e){
-        UrlRetriever.getSpotifyUrlsFromTwitter('', 'ctcTeam7', function(items){         
+        UrlRetriever.getSpotifyUrlsFromTwitter(since, 'ctcTeam7', function(items){         
             setItemTrackUris(items);
+   			since = items[0].id_str;
         });
     }); 
     $("#savePlaylist").live('click',function(e){
