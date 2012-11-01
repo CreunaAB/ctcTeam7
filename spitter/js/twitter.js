@@ -7,9 +7,9 @@ var Twitter = {
 		$.ajax({
 			url: self.url,
 			data: {
-				q: '%23' + hashtag,
+				q: '%23' + hashtag +'  +open.spotify+spoti.fi',
 				include_entities: true,
-				result_type: 'mixed',
+				result_type: 'recent',
 				since_id : since
 			},
 			dataType: 'jsonp'
