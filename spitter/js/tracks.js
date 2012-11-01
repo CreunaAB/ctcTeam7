@@ -11,8 +11,12 @@ var asyncCalls = [],  // Initiate for later
 	tempPlaylist = new models.Playlist();
 
 $(function(){
-setItemTrackUris();	
 	$("#spitter button").click(function(e){
+		UrlRetriever.getSpotifyUrlsFromTwitter('', 'ctcTeam7', function(items){			
+			setItemTrackUris(items);
+		});
+
+/*
 		var query = $("#search-term").val();
 		var type = $(this).attr("id");
 		if(query!="") {
@@ -43,7 +47,7 @@ setItemTrackUris();
 					search.appendNext();
 					break;				
 			}
-		}
+		}*/
 	});	
 	$("#savePlaylist").live('click',function(e){
 		var myAwesomePlaylist = new models.Playlist($("#search-term").val()+" Tracks");

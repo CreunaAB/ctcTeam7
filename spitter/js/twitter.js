@@ -2,7 +2,6 @@ var Twitter = {
 	url: 'http://search.twitter.com/search.json',
 	
 	getData: function(since, hashtag, callback) {
-
 		var self = this;
 
 		$.ajax({
@@ -38,6 +37,9 @@ UrlParser = {
 			dataType: 'jsonp'
 		}).done(function(data) {
 			tweet.spotifyurl = data['long-url'];
+			tweet.spotifyType = tweet.spotifyurl.split("/").slice(-2)[0];
+			tweet.spotifyId = tweet.spotifyurl.split("/").slice(-1)[0];
+			tweet.spotifyTrackUri = null;
 			callback.call(self, tweet);
 		});
 	},
@@ -79,14 +81,17 @@ UrlRetriever = {
 *@param hashtag should be the hashtag to search, example ctcTeam7, do not use other hashtags for now, we do not handle errors well
 *@param a callback function that will get an array of tweets, we have added the variable spotifyurl to the twitter object
 */ 
-/*Example call based on there exists a div with id wrapper
-UrlRetriever.getSpotifyUrlsFromTwitter('', 'ctcTeam7', function(array){
-	var wrapper = document.getElementById('wrapper');
-	for(var a in array){
-		var p = document.createElement("p");
-		p.innerHTML = array[a].spotifyurl;
-		console.log(array[a].spotifyurl);
-		wrapper.appendChild(p);
-	}
-});
-*/
+/*Example call based on there exists a div with id wrapper 
+UrlRetriever.getSpotifyUrlsFromTwitter('', 'ctcTeam7', function(items){
+			var wrapper = document.getElementById('wrapper');
+			for(var a in items){
+				var p = document.createElement("p");
+				p.innerHTML = items[a].spotifyurl;		
+				console.log(items[a].spotifyType, items[a].spotifyId)
+				wrapper.appendChild(p);
+			}
+
+			setItemTrackUris(items);	
+
+		});
+		*/
