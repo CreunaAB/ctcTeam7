@@ -3,8 +3,12 @@
 var albumCallbackCounter = 0;
 
 function setItemTrackUris(items) {	
-	var albumCounter = 0;
+	if (!tweetList) {
+		tweetList = [];
+	}
+	tweetList = tweetList.concat(items);
 
+	var albumCounter = 0;
 	for (var i = 0; i < items.length; ++i) {
 		var item = items[i];
 		if (item.spotifyType == "track") {
@@ -13,7 +17,6 @@ function setItemTrackUris(items) {
 			albumCounter++;
 		}
 	}
-
 	if (albumCounter == 0) {
 		updateUI(items);
 	}
@@ -55,8 +58,6 @@ function updateUI(items) {
 			playlist.add(items[i].spotifyTrackUri);
 		}
 	}
-
-	console.log(Tweet.getData(items[0].id_str));
 
 	/*var list = new views.List(playlist, function (track) {
 		return new views.Track(track, views.Track.FIELD.STAR | views.Track.FIELD.POPULARTIY | 

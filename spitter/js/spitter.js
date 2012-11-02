@@ -17,14 +17,23 @@ var application = models.application;
 var twitterQuery;
 var	playerImage = new views.Player();
 var since = '';
+var tweetList;
+
 var fetchTweets = function() {
 	UrlRetriever.getSpotifyUrlsFromTwitter(since, twitterQuery, function(items){         
 		setItemTrackUris(items);
 		since = items[0].id_str;
+        $('.twitter-tweet').html(showTweet(tweetList.splice(-1)[0]));
 	});
 };
 
-$(function() {	
+var showTweet = function(tweet) {
+    return '<img src="' + tweet.profile_image_url + '"/> ' + 
+                tweet.text + 
+                '<br/>&mdash; ' + tweet.from_user_name + ' (@' + tweet.from_user + ')';
+}
+
+function init() {	
 	tabs();	
 	application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);
     
@@ -58,4 +67,4 @@ $(function() {
 	});
 
     fetchTweets();
-});
+}

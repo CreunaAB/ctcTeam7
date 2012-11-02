@@ -35,6 +35,7 @@
     "RequiredInterface": "1",
     "RequiredPermissions": [ 
     	"http://*.twitter.com/",
+        "http://*.twimg.com/",
     	"http://*.longurl.org/"
     ]
 }
