@@ -7,4 +7,4 @@ Enjoying following certain users or hashtags on twitter just for their music rec
 without having to open complicated and shortened links with the incredible and gorgous SPITTER app. 
 
 
-![The SPITTER App](docs/img/screenshot.png)
+![The SPITTER App](https://raw.github.com/CreunaAB/ctcTeam7/master/spitter/docs/img/screenshot.png)
