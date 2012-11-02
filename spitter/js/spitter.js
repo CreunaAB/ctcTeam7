@@ -15,15 +15,24 @@ var dom = sp.require('sp://import/scripts/dom');
 var ui = sp.require("sp://import/scripts/ui");
 var application = models.application;
 var twitterQuery;
+var player = models.player;
 var	playerImage = new views.Player();
 var since = '';
 var tweetList;
 
+var addLoader = function() {
+        var loaderHtml = '<div class="throbber"><div class="wheel"></div></div>';
+        $('#search-results').before(loaderHtml);
+};
+addLoader();
+
 var fetchTweets = function() {
-	UrlRetriever.getSpotifyUrlsFromTwitter(since, twitterQuery, function(items){         
+	UrlRetriever.getSpotifyUrlsFromTwitter(since, twitterQuery, function(items) { 
+        // Remove loading indicator
+        var loader = dom.queryOne('.throbber');
+        dom.destroy(loader);        
 		setItemTrackUris(items);
 		since = items[0].id_str;
-        $('.twitter-tweet').html(showTweet(tweetList.splice(-1)[0]));
 	});
 };
 
@@ -33,7 +42,7 @@ var showTweet = function(tweet) {
                 '<br/>&mdash; ' + tweet.from_user_name + ' (@' + tweet.from_user + ')';
 }
 
-function init() {	
+function init() {
 	tabs();	
 	application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);
     
@@ -63,6 +72,12 @@ function init() {
     models.player.observe(models.EVENT.CHANGE, function (e) {	
 		if(e.data.curtrack == true) {
 			fetchTweets();
+            var track = player.track;
+            $.each(tweetList, function(key, tweet) {
+                if (tweet.spotifyTrackUri === track.uri) {
+                    $('.twitter-tweet').html(showTweet(tweet));
+                }   
+            });
 		}
 	});
 

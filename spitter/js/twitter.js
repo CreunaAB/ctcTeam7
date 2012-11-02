@@ -78,8 +78,6 @@ UrlRetriever = {
 
 			var array = [];
 			var index;
-			console.log(data.results.length+' from twitter');
-			console.log(data.results);
 			for(index = 0; index < data.results.length; index++){
 				UrlParser.expandUrl(data.results[index], function(tweet){ 
 					array.push(tweet);
