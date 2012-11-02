@@ -1,6 +1,10 @@
-lastfm-spotify-demo
-===================
+Team 7 - SPITTER
+==============
 
-Spotify Demo
+Spotify + Twitter = Spitter
 
-In `js/demo.js`, line 9, you need to insert a lastfm API-key of your own to get it up and running.
+Enjoying following certain users or hashtags on twitter just for their music recommendations? Now you can do listen directly to their tips in Spotify 
+without having to open complicated and shortened links with the incredible and gorgous SPITTER app. 
+
+
+![The SPITTER App](docs/img/screenshot.png)
